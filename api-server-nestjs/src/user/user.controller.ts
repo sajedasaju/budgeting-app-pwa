@@ -30,7 +30,9 @@ export class UserController {
   @Post('login')
   async login(@Body() body: LoginDto, @Res() res: Response) {
     try {
+      console.log('body',body)
       const token = await this.userService.login(body);
+      console.log('token',token)
       res.json({
         status: 200,
         message: 'Login successfully',
