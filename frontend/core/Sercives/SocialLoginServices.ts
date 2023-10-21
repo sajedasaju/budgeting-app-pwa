@@ -11,7 +11,7 @@ const LogInWithGoogle = {
         client_id: GOOGLE_CLIENT_ID,
         scope: 'profile email',
         response_type: 'code',
-        redirect_uri: 'http://127.0.0.1:3000/dashboard',
+        redirect_uri: 'http://localhost:3000/dashboard/oauth/callback&',
       },
       {
         headers: {
@@ -38,7 +38,7 @@ const LogInWithGoogle = {
         client_id: GOOGLE_CLIENT_ID,
         client_secret: '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',
         code,
-        redirect_uri: 'http://127.0.0.1:3000/dashboard',
+        redirect_uri: 'http://localhost:3000/dashboard/oauth/callback&',
         grant_type: 'authorization_code',
       },
     );

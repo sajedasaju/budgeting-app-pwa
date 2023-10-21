@@ -26,42 +26,25 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
-  const handleGoogleLogin = async () => {
-    try {
-      console.log('hi');
-      const getToken = await LogInWithGoogle.login();
-      if (getToken) {
-        setAccessToken(getToken);
-      }
-
-      const userProfile = await LogInWithGoogle.getUserProfile(accessToken);
-
-      setUserProfile(userProfile);
-    } catch (e) {}
-  };
 
   function oauthSignIn() {
-    // Google's OAuth 2.0 endpoint for requesting an access token
     var oauth2Endpoint = 'https://accounts.google.com/o/oauth2/v2/auth';
 
     console.log('hello googlr');
-    // Create <form> element to submit parameters to OAuth 2.0 endpoint.
     var form = document.createElement('form');
     form.setAttribute('method', 'GET'); // Send as a GET request.
     form.setAttribute('action', oauth2Endpoint);
 
-    // Parameters to pass to OAuth 2.0 endpoint.
     var params = {
       client_id:
         '531319829318-nm45a7bd9jvq8sonm6lsmfvhqalhe1op.apps.googleusercontent.com',
-      redirect_uri: 'http://localhost:3000/dashboard',
+      redirect_uri: 'http://127.0.0.1:3000',
       response_type: 'token',
-      scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
+      scope: 'https://www.googleapis.com/auth/userinfo.profile',
       include_granted_scopes: 'true',
       state: 'pass-through value',
     };
 
-    // Add form parameters as hidden input values.
     for (var p in params) {
       var input = document.createElement('input');
       input.setAttribute('type', 'hidden');
@@ -75,16 +58,7 @@ const Login = () => {
     form.submit();
   }
 
-  const {
-    register,
-    reset,
-    setValue,
-    clearErrors,
-    setError,
-    handleSubmit,
-    control,
-    formState: {errors, isSubmitting},
-  } = useForm<any>();
+  const {register, handleSubmit} = useForm<any>();
 
   const onSubmit: SubmitHandler<any> = async (formData: any) => {
     try {
@@ -276,93 +250,6 @@ const Login = () => {
         </form>
       </Grid>
     </>
-
-    // <ThemeProvider theme={defaultTheme}>
-    //     <Container maxWidth="xs">
-    //
-    //         <CssBaseline/>
-    //         <Box
-    //             sx={{
-    //                 marginTop: 8,
-    //                 display: 'flex',
-    //                 flexDirection: 'column',
-    //                 alignItems: 'center',
-    //                 backgroundColor: '#FEFEFF',
-    //                 padding:'15px',
-    //                 pt: '30px',
-    //                 mt:'0px'
-    //
-    //             }}
-    //         >
-    //             <Typography component="h1" variant="h5" sx={{mb:'20px'}} >
-    //                 LOG IN
-    //             </Typography>
-    //             <form onSubmit={handleSubmit(onSubmitHandler)}>
-    //                 <Grid container spacing={5}  sx={{float:'bottom'}}>
-    //                     <Grid item xs={12}>
-    //                         <TextField
-    //
-    //                             required
-    //                             fullWidth
-    //                             id="email"
-    //                             label="Email Address"
-    //                             name="email"
-    //                             autoComplete="email"
-    //                             variant="outlined"
-    //                             InputProps={{
-    //                                 style: {
-    //                                     borderRadius: "30px",
-    //                                     backgroundColor: "#F8F7F8"
-    //                                 }
-    //                             }}
-    //                         />
-    //                     </Grid>
-    //                     <Grid item xs={12}>
-    //                         <TextField
-    //
-    //                             required
-    //                             fullWidth
-    //                             name="password"
-    //                             label="Password"
-    //                             id="password"
-    //                             autoComplete="new-password"
-    //                             variant="outlined"
-    //                             type={showPassword ? "text" : "password"} // <-- This is where the magic happens
-    //
-    //                             InputProps={{
-    //                                 style: {
-    //                                     borderRadius: "30px",
-    //                                     backgroundColor: "#F8F7F8"
-    //                                 },
-    //                                 endAdornment: (
-    //                                     <InputAdornment position="end">
-    //                                         <IconButton
-    //                                             aria-label="toggle password visibility"
-    //                                             onClick={handleClickShowPassword}
-    //                                             onMouseDown={handleMouseDownPassword}
-    //                                         >
-    //                                             {showPassword ? <Visibility /> : <VisibilityOff />}
-    //                                         </IconButton>
-    //                                     </InputAdornment>
-    //                                 )
-    //                             }}
-    //                         />
-    //                     </Grid>
-    //
-    //                 </Grid>
-    //                 <Button
-    //                     type="submit"
-    //                     fullWidth
-    //                     variant="contained"
-    //                     sx={{mt: 3, mb: 2, borderRadius:'15px', backgroundColor: 'black', height: '50px'}}
-    //                 >
-    //                     Log in
-    //                 </Button>
-    //             </form>
-    //
-    //         </Box>
-    //     </Container>
-    // </ThemeProvider>
   );
 };
 export default Login;
