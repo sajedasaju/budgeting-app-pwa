@@ -17,15 +17,26 @@ import CustomActionButtonComponent from '@/common/button/CustomActionButtonCompo
 import {SubmitHandler, useForm} from 'react-hook-form';
 import {yupResolver} from '@hookform/resolvers/yup';
 import {login} from '@/core/Sercives/LoginService';
+import LogInWithGoogle from '@/core/Sercives/SocialLoginServices';
 
 const Login = () => {
+  const [userProfile, setUserProfile] = useState(null);
+  const [accessToken, setAccessToken] = useState(null);
   const Router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
-  const handleLogin = async () => {
+  const handleGoogleLogin = async () => {
     try {
-      // await login()
+      console.log('hi');
+      const getToken = await LogInWithGoogle.login();
+      if (getToken) {
+        setAccessToken(getToken);
+      }
+
+      const userProfile = await LogInWithGoogle.getUserProfile(accessToken);
+
+      setUserProfile(userProfile);
     } catch (e) {}
   };
 
@@ -42,17 +53,13 @@ const Login = () => {
     // Parameters to pass to OAuth 2.0 endpoint.
     var params = {
       client_id:
-        '534814520521-gn5ebp8h6edec4t36b72q6tolheos0cj.apps.googleusercontent.com',
+        '531319829318-nm45a7bd9jvq8sonm6lsmfvhqalhe1op.apps.googleusercontent.com',
       redirect_uri: 'http://localhost:3000/dashboard',
       response_type: 'token',
       scope: 'https://www.googleapis.com/auth/drive.metadata.readonly',
       include_granted_scopes: 'true',
       state: 'pass-through value',
     };
-    // AIzaSyDNuVTu8bz3biR1N3H-lxLZe4yjrgglNi8
-
-    //client id
-    // 534814520521-gn5ebp8h6edec4t36b72q6tolheos0cj.apps.googleusercontent.com
 
     // Add form parameters as hidden input values.
     for (var p in params) {
