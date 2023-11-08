@@ -14,14 +14,21 @@ import AppleIcon from '@mui/icons-material/Apple';
 import FacebookRoundedIcon from '@mui/icons-material/FacebookRounded';
 import GoogleIcon from '@mui/icons-material/Google';
 import CustomActionButtonComponent from '@/common/button/CustomActionButtonComponent';
+import axios from 'axios';
 
 const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-  const responseGoogle = (response: any) => {
-    console.log(response);
+  const responseGoogle = () => {
+    console.log('==============sdfsdfsdfsdf');
+    // try {
+    //   const response = await axios.get('http://localhost:5000/auth');
+    //   console.log('Response:', response.data);
+    // } catch (error) {
+    //   console.error('Error:', error);
+    // }
   };
 
   return (
@@ -168,13 +175,13 @@ const Signup = () => {
               <Grid
                 item
                 xs={4}
+                onClick={responseGoogle}
                 sx={{
                   alignItems: 'center',
                   justifyContent: 'center',
                   display: 'flex',
                 }}>
                 <Box
-                  onClick={responseGoogle}
                   sx={{
                     height: '70px',
                     width: '70px',

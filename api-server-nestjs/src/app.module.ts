@@ -1,15 +1,18 @@
-import {MiddlewareConsumer, Module, NestModule} from "@nestjs/common";
-import {MongooseModule} from "@nestjs/mongoose";
-import {AppController} from "./app.controller";
-import {AppService} from "./app.service";
-import {BudgetModule} from "./budget/budget.module";
-import {CashbookModule} from "./cashbook/cashbook.module";
-import {CategoryModule} from "./category/category.module";
-import {ExpenseModule} from "./expense/expense.module";
-import {IncomeModule} from "./income/income.module";
-import {AuthMiddleware} from "./middleware/Auth.middleware";
-import {UserModule} from "./user/user.module";
-import "dotenv/config";
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
+import { BudgetModule } from './budget/budget.module';
+import { CashbookModule } from './cashbook/cashbook.module';
+import { CategoryModule } from './category/category.module';
+import { ExpenseModule } from './expense/expense.module';
+import { IncomeModule } from './income/income.module';
+import { AuthMiddleware } from './middleware/Auth.middleware';
+import { UserModule } from './user/user.module';
+import { ConfigModule } from '@nestjs/config';
+import { GoogleStrategy } from './auth/strategies/auth.controller';
+
+import 'dotenv/config';
 
 @Module({
   imports: [
@@ -19,14 +22,16 @@ import "dotenv/config";
     ExpenseModule,
     CashbookModule,
     BudgetModule,
-    CategoryModule
-
+    CategoryModule,
+    ConfigModule.forRoot(),
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [AppService, GoogleStrategy],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes("income/*", "cashbook", "expense/*", "budget/*");
+    consumer
+      .apply(AuthMiddleware)
+      .forRoutes('income/*', 'cashbook', 'expense/*', 'budget/*');
   }
 }
