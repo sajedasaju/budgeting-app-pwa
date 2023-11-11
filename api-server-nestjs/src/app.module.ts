@@ -10,9 +10,11 @@ import { IncomeModule } from './income/income.module';
 import { AuthMiddleware } from './middleware/Auth.middleware';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
-import { GoogleStrategy } from './auth/strategies/auth.controller';
+import { GoogleStrategy } from './auth/strategies/google.strategy';
 
 import 'dotenv/config';
+import { GoogleController } from './socialLogin/socialLogin.controller';
+import { GoogleModule } from './socialLogin/socialLogin.module';
 
 @Module({
   imports: [
@@ -23,7 +25,7 @@ import 'dotenv/config';
     CashbookModule,
     BudgetModule,
     CategoryModule,
-    ConfigModule.forRoot(),
+    GoogleModule,
   ],
   controllers: [AppController],
   providers: [AppService, GoogleStrategy],

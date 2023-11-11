@@ -1,12 +1,12 @@
-import { GoogleOAuthGuard } from '../auth/guards/goggle-oauth.guard';
+import { GoogleOAuthGuard } from '../auth/guards/google-oauth.guard';
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
-import { AppService } from './socialLogin.service';
+import { GoogleService } from './socialLogin.service';
 
 @Controller('auth')
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class GoogleController {
+  constructor(private readonly appService: GoogleService) {}
 
-  @Get()
+  @Get('google')
   @UseGuards(GoogleOAuthGuard)
   async googleAuth(@Request() req) {}
 

@@ -21,14 +21,14 @@ const Signup = () => {
   const handleClickShowPassword = () => setShowPassword(!showPassword);
   const handleMouseDownPassword = () => setShowPassword(!showPassword);
 
-  const responseGoogle = () => {
+  const responseGoogle = async () => {
     console.log('==============sdfsdfsdfsdf');
-    // try {
-    //   const response = await axios.get('http://localhost:5000/auth');
-    //   console.log('Response:', response.data);
-    // } catch (error) {
-    //   console.error('Error:', error);
-    // }
+    try {
+      const response = await axios.get('http://localhost:5000/auth/google');
+      console.log('Response:', response.data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
@@ -175,13 +175,13 @@ const Signup = () => {
               <Grid
                 item
                 xs={4}
-                onClick={responseGoogle}
                 sx={{
                   alignItems: 'center',
                   justifyContent: 'center',
                   display: 'flex',
                 }}>
                 <Box
+                  onClick={responseGoogle}
                   sx={{
                     height: '70px',
                     width: '70px',

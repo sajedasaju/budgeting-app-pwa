@@ -10,7 +10,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   app.enableCors();
   await app.listen(5000);
-  console.log('connected');
+  console.log('connected to port :5000');
 }
 
 bootstrap();

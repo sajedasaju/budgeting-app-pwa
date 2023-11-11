@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class AppService {
+export class GoogleService {
   googleLogin(req) {
+    console.log('ser');
     if (!req.user) {
       return 'No user from google';
     }

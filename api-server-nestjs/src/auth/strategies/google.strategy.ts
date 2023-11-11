@@ -9,7 +9,7 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
       clientID:
         '917930593794-i6qpe8o6l4jb8rdda59hq5r0v0l8i99v.apps.googleusercontent.com',
       clientSecret: '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',
-      callbackURL: 'http://localhost:3200/auth/google/redirect',
+      callbackURL: 'http://localhost:5000/auth/google/redirect',
       scope: ['profile', 'email'],
     });
   }
@@ -21,13 +21,12 @@ export class GoogleStrategy extends PassportStrategy(Strategy, 'google') {
     done: VerifyCallback,
   ): Promise<any> {
     const { id, name, emails, photos } = profile;
-
+    console.log('dagdsgasgdgasdgj 1111');
     const user = {
-      provider: 'google',
-      providerId: id,
+      // provider: 'google',
+      // providerId: id,
       email: emails[0].value,
       name: `${name.givenName} ${name.familyName}`,
-      picture: photos[0].value,
     };
 
     done(null, user);
